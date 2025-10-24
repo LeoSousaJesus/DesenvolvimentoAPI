@@ -6,33 +6,34 @@ using System;
 
 namespace Exo.WebApi.Controllers
 {
-    [ApiController]
+
     [Route("api/[controller]")]
+    [ApiController]
     
     public class ProjetosController : ControllerBase
     {
-        private readonly ProjetoRepository _repository;
+        private readonly ProjetoRepository _projetoRepository;
         public ProjetosController(ProjetoRepository repository)
         {
-            _repository = repository;
+            _projetoRepository = repository;
         }
 
         [HttpGet]
         public IActionResult Listar()
         {
-            return Ok(_repository.Listar());
+            return Ok(_projetoRepository.Listar());
         }
 
         [HttpPost]
         public IActionResult Cadastrar(Projeto projeto)
         {
-            _repository.Cadastrar(projeto);
+            _projetoRepository.Cadastrar(projeto);
             return StatusCode(201);
         }
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
-            Projeto projeto = _repository.BuscarporId(id);
+            Projeto projeto = _projetoRepository.BuscarporId(id);
             if(projeto == null)
             {
                 return NotFound();
@@ -42,7 +43,7 @@ namespace Exo.WebApi.Controllers
         [HttpPut("{id}")]
         public IActionResult Atualizar(int id, Projeto projeto)
         {
-            _repository.Atualizar(id, projeto);
+            _projetoRepository.Atualizar(id, projeto);
             return StatusCode(204);
         }
         [HttpDelete("{id}")]
@@ -50,7 +51,7 @@ namespace Exo.WebApi.Controllers
         {
             try
             {
-                _repository.Deletar(id);
+                _projetoRepository.Deletar(id);
                 return StatusCode(204);
             }
             catch (Exception)
